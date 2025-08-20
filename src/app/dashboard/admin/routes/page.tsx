@@ -14,8 +14,8 @@ export default function RoutesPage() {
       </div>
       <h2 className="text-2xl font-semibold">Manage Routes</h2>
       <p className="mt-2 max-w-md text-muted-foreground">
-        This page is under construction. Check back later for features to add,
-        edit, and manage bus routes.
+        This page is under construction. Features to add,
+        edit, and manage bus routes will be available here soon.
       </p>
     </div>
   );
