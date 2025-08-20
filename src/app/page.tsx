@@ -11,9 +11,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
 const roles = [
-  { name: "Student", icon: GraduationCap },
-  { name: "Faculty", icon: Monitor },
-  { name: "Administration", icon: Users },
+  { name: "Student", icon: GraduationCap, path: "student" },
+  { name: "Faculty", icon: Monitor, path: "faculty" },
+  { name: "Administration", icon: Users, path: "admin" },
   {
     name: "Driver",
     icon: () => (
@@ -34,16 +34,17 @@ const roles = [
         <path d="M15 8l-3 3-3-3" />
       </svg>
     ),
+    path: "driver",
   },
 ];
 
 export default function RoleSelectionPage() {
   const router = useRouter();
 
-  const handleRoleSelection = (role: string) => {
+  const handleRoleSelection = (path: string) => {
     // In a real app, you would navigate to a specific login page
     // For this demo, we navigate directly to the dashboard
-    router.push(`/dashboard/${role.toLowerCase()}`);
+    router.push(`/dashboard/${path}`);
   };
 
   return (
@@ -64,7 +65,7 @@ export default function RoleSelectionPage() {
             <Card
               key={role.name}
               className="cursor-pointer transition-all hover:border-primary/50"
-              onClick={() => handleRoleSelection(role.name)}
+              onClick={() => handleRoleSelection(role.path)}
             >
               <CardContent className="flex flex-col items-center justify-center p-6">
                 <role.icon />
