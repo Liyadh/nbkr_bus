@@ -8,10 +8,19 @@ import { Button } from "@/components/ui/button";
 const getTitle = (pathname: string): string => {
   const segments = pathname.split("/").filter(Boolean);
   if (segments.length < 2) return "Dashboard";
+
   const role = segments[1];
-  const page = segments[2];
+  let page = segments.length > 2 ? segments[2] : "";
 
   const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+  if (role === 'admin') {
+      if (!page) return "Admin Dashboard";
+      if (page === 'drivers') return "Manage Drivers";
+      if (page === 'buses') return "Manage Buses";
+      if (page === 'management') return "Bus Management";
+      if (page === 'location') return "Bus Live Location";
+  }
 
   if (!page || page === role) {
     return `${capitalize(role)} Dashboard`;

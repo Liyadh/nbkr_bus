@@ -9,6 +9,8 @@ import {
   Users,
   LogOut,
   Settings,
+  Bus,
+  Wrench,
 } from "lucide-react";
 
 import {
@@ -26,8 +28,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const navItems = {
   admin: [
     { href: "/dashboard/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/dashboard/admin/routes", label: "Routes", icon: MapPin },
     { href: "/dashboard/admin/drivers", label: "Drivers", icon: Users },
+    { href: "/dashboard/admin/buses", label: "Buses", icon: Bus },
+    { href: "/dashboard/admin/management", label: "Bus Management", icon: Wrench },
+    { href: "/dashboard/admin/location", label: "Bus Live Location", icon: MapPin },
   ],
   driver: [{ href: "/dashboard/driver", label: "My Route", icon: MapPin }],
   student: [{ href: "/dashboard/student", label: "Live Map", icon: MapPin }],
@@ -65,7 +69,7 @@ export function DashboardSidebar() {
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname === item.href}
+                isActive={pathname.startsWith(item.href) && (item.href !== '/dashboard/admin' || pathname === '/dashboard/admin')}
                 className="w-full"
               >
                 <Link href={item.href}>
