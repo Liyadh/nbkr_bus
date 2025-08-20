@@ -1,143 +1,63 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Activity, Bus, User, Users } from "lucide-react";
-import { MapComponent } from "@/components/dashboard/map";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+"use client";
 
-const buses = [
-  { id: "BUS-01", driver: "John Doe", route: "Campus Circle", status: "Active" },
+import { Card, CardContent } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import { Eye, ShieldCheck, UserCog } from "lucide-react";
+
+const adminRoles = [
   {
-    id: "BUS-02",
-    driver: "Jane Smith",
-    route: "Downtown Express",
-    status: "Active",
+    name: "View-Only Admin (A)",
+    description: "Access to view all data without modification rights.",
+    icon: Eye,
+    path: "/dashboard/admin/dashboard", // For now, points to the main dashboard
   },
-  { id: "BUS-03", driver: "Mike Ross", route: "North Campus", status: "Inactive" },
   {
-    id: "BUS-04",
-    driver: "Rachel Zane",
-    route: "Campus Circle",
-    status: "Maintenance",
+    name: "Managing Admin (B)",
+    description: "Full access to manage drivers, buses, and system settings.",
+    icon: UserCog,
+    path: "/dashboard/admin/dashboard",
+  },
+  {
+    name: "Managing Admin (C)",
+    description: "Full access to manage drivers, buses, and system settings.",
+    icon: ShieldCheck,
+    path: "/dashboard/admin/dashboard",
   },
 ];
 
-export default function AdminDashboard() {
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Buses</CardTitle>
-            <Bus className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">12</div>
-            <p className="text-xs text-muted-foreground">8 Active, 4 Inactive</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Drivers On-Duty</CardTitle>
-            <User className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">8</div>
-            <p className="text-xs text-muted-foreground">
-              out of 15 total drivers
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Students Onboard
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+2350</div>
-            <p className="text-xs text-muted-foreground">
-              Confirmed locations today
-            </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Routes</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">4</div>
-            <p className="text-xs text-muted-foreground">
-              Covering all major areas
-            </p>
-          </CardContent>
-        </Card>
-      </div>
+export default function AdminRoleSelectionPage() {
+  const router = useRouter();
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
-        <div className="lg:col-span-3">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Live Fleet Status</CardTitle>
-                <CardDescription>
-                  Overview of all buses and their current status.
-                </CardDescription>
-              </div>
-              <Button size="sm" asChild>
-                <Link href="/dashboard/admin/routes">Manage Routes</Link>
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Bus ID</TableHead>
-                    <TableHead>Driver</TableHead>
-                    <TableHead>Route</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {buses.map((bus) => (
-                    <TableRow key={bus.id}>
-                      <TableCell className="font-medium">{bus.id}</TableCell>
-                      <TableCell>{bus.driver}</TableCell>
-                      <TableCell>{bus.route}</TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            bus.status === "Active" ? "default" : "outline"
-                          }
-                        >
-                          {bus.status}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-        <div className="lg:col-span-2">
-          <MapComponent />
+  const handleRoleSelection = (path: string) => {
+    router.push(path);
+  };
+
+  return (
+    <div className="flex min-h-[60vh] flex-col items-center justify-center">
+      <div className="w-full max-w-2xl text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Select Your Admin Role
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          Choose your designated administration profile to proceed.
+        </p>
+
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {adminRoles.map((role) => (
+            <Card
+              key={role.name}
+              className="cursor-pointer transition-all hover:border-primary/50 hover:shadow-lg"
+              onClick={() => handleRoleSelection(role.path)}
+            >
+              <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <role.icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-semibold text-foreground">{role.name}</h3>
+                <p className="mt-2 text-xs text-muted-foreground">{role.description}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </div>

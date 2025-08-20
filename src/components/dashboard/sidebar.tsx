@@ -11,6 +11,7 @@ import {
   Settings,
   Bus,
   Wrench,
+  Route,
 } from "lucide-react";
 
 import {
@@ -27,9 +28,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navItems = {
   admin: [
-    { href: "/dashboard/admin", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/dashboard/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/dashboard/admin/drivers", label: "Drivers", icon: Users },
     { href: "/dashboard/admin/buses", label: "Buses", icon: Bus },
+    { href: "/dashboard/admin/routes", label: "Routes", icon: Route },
     { href: "/dashboard/admin/management", label: "Bus Management", icon: Wrench },
     { href: "/dashboard/admin/location", label: "Bus Live Location", icon: MapPin },
   ],
@@ -69,7 +71,7 @@ export function DashboardSidebar() {
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton
                 asChild
-                isActive={pathname.startsWith(item.href) && (item.href !== '/dashboard/admin' || pathname === '/dashboard/admin')}
+                isActive={pathname === item.href}
                 className="w-full"
               >
                 <Link href={item.href}>

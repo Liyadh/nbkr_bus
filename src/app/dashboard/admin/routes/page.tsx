@@ -4,17 +4,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Wrench } from "lucide-react";
+import { Route } from "lucide-react";
 
-export default function ManagementPage() {
+export default function RoutesPage() {
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center rounded-xl border border-dashed bg-card p-8 text-center">
       <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-        <Wrench className="h-8 w-8 text-primary" />
+        <Route className="h-8 w-8 text-primary" />
       </div>
-      <h2 className="text-2xl font-semibold">Bus Management</h2>
+      <h2 className="text-2xl font-semibold">Manage Routes</h2>
       <p className="mt-2 max-w-md text-muted-foreground">
-        This page is under construction. Features for managing bus maintenance will be available here soon.
+        This page is under construction. Check back later for features to add,
+        edit, and manage bus routes.
       </p>
     </div>
   );
