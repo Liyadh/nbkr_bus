@@ -93,9 +93,9 @@ export default function ManagementPage() {
     });
   };
 
-  const handleCompleteMaintenance = (busNo: string) => {
+  const handleCompleteMaintenance = (busNo: string, date: string) => {
     setMaintenanceBuses(
-      maintenanceBuses.filter((bus) => bus.busNo !== busNo)
+      maintenanceBuses.filter((bus) => !(bus.busNo === busNo && bus.date === date))
     );
     toast({
       title: "Maintenance Complete",
@@ -177,8 +177,8 @@ export default function ManagementPage() {
           </TableHeader>
           <TableBody>
             {maintenanceBuses.length > 0 ? (
-              maintenanceBuses.map((bus) => (
-                <TableRow key={bus.busNo}>
+              maintenanceBuses.map((bus, index) => (
+                <TableRow key={`${bus.busNo}-${bus.date}-${index}`}>
                   <TableCell className="font-medium">{bus.busNo}</TableCell>
                   <TableCell>{bus.reason}</TableCell>
                   <TableCell>{bus.date}</TableCell>
@@ -189,7 +189,7 @@ export default function ManagementPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleCompleteMaintenance(bus.busNo)}
+                      onClick={() => handleCompleteMaintenance(bus.busNo, bus.date)}
                     >
                       <Wrench className="mr-2 h-3 w-3" /> Mark as Complete
                     </Button>
